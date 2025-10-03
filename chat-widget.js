@@ -68,7 +68,7 @@ class ChatWidget {
         this.showTypingIndicator();
 
         try {
-  const response = await fetch('/api/chat', {
+  const response = await fetch('https://everse-chatbot.onrender.com/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -192,4 +192,5 @@ class ChatWidget {
 // Initialize chat widget when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new ChatWidget();
+
 });
