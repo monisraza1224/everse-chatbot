@@ -20,12 +20,13 @@ class ShopifyChatIntegration {
             return;
         }
 
-        // Use ngrok URL for all resources
-     const CHAT_SERVER_URL = '';
+        // Use relative paths for production
+        const CHAT_SERVER_URL = 'https://everse-chatbot.onrender.com';
+
         // Inject CSS
         const cssLink = document.createElement('link');
         cssLink.rel = 'stylesheet';
-        cssLink.href = '/chat-widget.css';
+        cssLink.href = `${CHAT_SERVER_URL}/chat-widget.css`;
         document.head.appendChild(cssLink);
 
         // Inject HTML structure
@@ -87,7 +88,7 @@ class ShopifyChatIntegration {
 
         // Inject JavaScript
         const script = document.createElement('script');
-        script.src = '/chat-widget.js';
+        script.src = `${CHAT_SERVER_URL}/chat-widget.js`;
         document.head.appendChild(script);
 
         this.isInitialized = true;
