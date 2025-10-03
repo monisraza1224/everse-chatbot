@@ -17,8 +17,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
-
+app.use(express.static(__dirname));
 // Routes
 app.use('/api/chat', require('./openai-service'));
 app.use('/api/shopify', require('./shopify-api'));
@@ -49,4 +48,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Everse Chatbot running on port ${PORT}`);
   console.log(`🌐 Ready for production`);
+
 });
