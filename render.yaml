@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: everse-chatbot
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SHOPIFY_STORE_URL
+        value: eversetraveltech.com
+      - key: SHOPIFY_ACCESS_TOKEN
+        value: your_shopify_access_token_here
+      - key: OPENAI_API_KEY
+        value: your_openai_api_key_here
