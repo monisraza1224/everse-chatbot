@@ -1,4 +1,4 @@
-// Everse Shopify Chat Integration - Direct Chat Loading
+// Everse Shopify Chat Integration - With AI Service Connection
 (function() {
     'use strict';
     
@@ -52,7 +52,14 @@
                         <div class="message-avatar">E</div>
                         <div class="message-content">
                             <strong>Welcome to Everse Support</strong><br><br>
-                            I'm here to help you with product recommendations, pricing, and technical support. How can I assist you today?
+                            I'm here to help you with:
+                            <br><br>
+                            • Product recommendations & pricing<br>
+                            • Technical specifications<br>
+                            • Installation guidance<br>
+                            • Shipping & warranty information<br>
+                            <br>
+                            How can I assist you today?
                         </div>
                     </div>
                 </div>
@@ -173,11 +180,13 @@
                 overflow-y: auto;
                 background: #f8fafc;
                 height: 400px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
             }
             .message {
                 display: flex;
                 gap: 12px;
-                margin-bottom: 16px;
             }
             .message-avatar {
                 width: 32px;
@@ -188,9 +197,14 @@
                 justify-content: center;
                 font-size: 12px;
                 font-weight: 600;
+                flex-shrink: 0;
             }
             .bot-message .message-avatar {
                 background: #0D1B2A;
+                color: white;
+            }
+            .user-message .message-avatar {
+                background: #4CAF50;
                 color: white;
             }
             .message-content {
@@ -199,11 +213,19 @@
                 line-height: 1.5;
                 font-size: 14px;
                 max-width: 280px;
+                word-wrap: break-word;
             }
             .bot-message .message-content {
                 background: #F9FAFB;
                 color: #333333;
                 border: 1px solid #e5e7eb;
+            }
+            .user-message .message-content {
+                background: #4CAF50;
+                color: white;
+            }
+            .user-message {
+                flex-direction: row-reverse;
             }
             #chat-input-container {
                 padding: 20px;
@@ -227,6 +249,34 @@
                 border-radius: 14px;
                 cursor: pointer;
             }
+            .typing-indicator {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                padding: 14px 18px;
+                background: #F9FAFB;
+                border: 1px solid #e5e7eb;
+                border-radius: 18px;
+                max-width: 120px;
+            }
+            .typing-dots {
+                display: flex;
+                gap: 4px;
+            }
+            .typing-dots span {
+                animation: typing 1.4s infinite;
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                background: #6b7280;
+                border-radius: 50%;
+            }
+            .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+            .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+            @keyframes typing {
+                0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+                30% { transform: translateY(-4px); opacity: 1; }
+            }
             
             @media (max-width: 480px) {
                 #everse-chat-container {
@@ -248,6 +298,7 @@
         const sendButton = document.getElementById('send-button');
         const closeButton = document.getElementById('close-chat');
         const chatMessages = document.getElementById('chat-messages');
+        let conversationHistory = [];
 
         // Toggle chat
         toggleButton.addEventListener('click', function() {
@@ -262,8 +313,8 @@
             chatContainer.classList.remove('active');
         });
 
-        // Send message
-        function sendMessage() {
+        // Send message to AI service
+        async function sendMessage() {
             const message = chatInput.value.trim();
             if (!message) return;
 
@@ -271,10 +322,43 @@
             addMessage(message, 'user');
             chatInput.value = '';
 
-            // Simulate bot response (replace with actual API call)
-            setTimeout(() => {
-                addMessage('I can help you with product information, pricing, and technical support. For detailed assistance, please visit our website or contact Sales@eversetraveltech.com', 'bot');
-            }, 1000);
+            // Show typing indicator
+            showTypingIndicator();
+
+            try {
+                // Call your AI service
+                const response = await fetch('https://everse-chatbot.onrender.com/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        conversationHistory: conversationHistory
+                    })
+                });
+
+                const data = await response.json();
+                
+                // Remove typing indicator
+                removeTypingIndicator();
+
+                if (data.response) {
+                    addMessage(data.response, 'bot', true); // true means it's HTML
+                    // Update conversation history
+                    conversationHistory.push(
+                        { role: 'user', content: message },
+                        { role: 'assistant', content: data.response }
+                    );
+                } else {
+                    addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                }
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                removeTypingIndicator();
+                addMessage('Sorry, I\'m having trouble connecting. Please try again.', 'bot');
+            }
         }
 
         sendButton.addEventListener('click', sendMessage);
@@ -282,7 +366,7 @@
             if (e.key === 'Enter') sendMessage();
         });
 
-        function addMessage(text, sender) {
+        function addMessage(text, sender, isHTML = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
             
@@ -292,14 +376,16 @@
             
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
-            contentDiv.textContent = text;
+            
+            if (isHTML) {
+                contentDiv.innerHTML = text;
+            } else {
+                contentDiv.textContent = text;
+            }
             
             if (sender === 'user') {
                 messageDiv.appendChild(contentDiv);
                 messageDiv.appendChild(avatarDiv);
-                messageDiv.style.flexDirection = 'row-reverse';
-                contentDiv.style.background = '#4CAF50';
-                contentDiv.style.color = 'white';
             } else {
                 messageDiv.appendChild(avatarDiv);
                 messageDiv.appendChild(contentDiv);
@@ -309,6 +395,36 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        console.log('✅ Everse Chat Widget loaded successfully');
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'message-avatar';
+            avatarDiv.textContent = 'E';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.innerHTML = `
+                <div class="typing-dots">
+                    <span></span><span></span><span></span>
+                </div>
+            `;
+            
+            typingDiv.appendChild(avatarDiv);
+            typingDiv.appendChild(contentDiv);
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        console.log('✅ Everse Chat Widget loaded with AI service connection');
     }
 })();
