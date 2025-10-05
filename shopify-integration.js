@@ -1,102 +1,112 @@
-// Everse Shopify Chat Integration
+// Everse Shopify Chat Integration - Simplified
 class ShopifyChatIntegration {
     constructor() {
-        this.isInitialized = false;
         this.init();
     }
 
     init() {
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.injectChatWidget());
+            document.addEventListener('DOMContentLoaded', () => this.injectChatIframe());
         } else {
-            this.injectChatWidget();
+            this.injectChatIframe();
         }
     }
 
-    injectChatWidget() {
-        if (document.getElementById('chat-widget')) return;
+    injectChatIframe() {
+        if (document.getElementById('everse-chat-iframe')) return;
 
-        const CHAT_SERVER_URL = 'https://everse-chatbot.onrender.com';
-
-        // Inject CSS asynchronously
-        const cssLink = document.createElement('link');
-        cssLink.rel = 'stylesheet';
-        cssLink.href = `${CHAT_SERVER_URL}/chat-widget.css`;
-        cssLink.onload = () => console.log('✅ Everse Chat Widget CSS loaded');
-        document.head.appendChild(cssLink);
-
-        // Inject HTML structure
-        const chatHTML = `
-            <div id="chat-widget">
-                <div id="chat-header">
-                    <div class="header-content">
-                        <div class="avatar">E</div>
-                        <div class="header-text">
-                            <h3>Everse Support</h3>
-                            <span class="status">Online • Typically replies instantly</span>
-                        </div>
-                    </div>
-                    <button id="close-chat">×</button>
-                </div>
-                <div id="chat-messages">
-                    <div class="message bot-message">
-                        <div class="message-avatar">E</div>
-                        <div class="message-content">
-                            <strong>Welcome to Everse Support</strong><br><br>
-                            I'm here to help you with:
-                            <br><br>
-                            • Product recommendations & pricing<br>
-                            • Technical specifications<br>
-                            • Installation guidance<br>
-                            • Shipping & warranty information<br>
-                            <br>
-                            <div class="support-notice">
-                                <strong>Need human assistance?</strong><br>
-                                Contact our sales team at <a href="mailto:Sales@eversetraveltech.com" class="contact-email">Sales@eversetraveltech.com</a> for personalized support.
-                            </div>
-                            <br>
-                            How can I assist you today?
-                        </div>
-                    </div>
-                </div>
-                <div id="chat-input-container">
-                    <input type="text" id="chat-input" placeholder="Ask about products, pricing, or support..." maxlength="500">
-                    <button id="send-button">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
-                </div>
+        // Create chat toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.id = 'everse-chat-toggle';
+        toggleButton.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <rect x="4" y="7" width="16" height="2"></rect>
+                    <rect x="4" y="11" width="16" height="2"></rect>
+                    <rect x="4" y="15" width="16" height="2"></rect>
+                </svg>
+                <span style="position: absolute; top: -2px; right: -2px; width: 12px; height: 12px; background: #00C853; border-radius: 50%; border: 2px solid white; animation: pulse 2s infinite;"></span>
             </div>
-            <button id="chat-toggle">
-                <div class="toggle-content">
-                    <!-- Three-line logo with white lines for visibility -->
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="4" y="7" width="16" height="2" fill="white"/>
-                        <rect x="4" y="11" width="16" height="2" fill="white"/>
-                        <rect x="4" y="15" width="16" height="2" fill="white"/>
-                    </svg>
-                    <span class="pulse-dot"></span>
-                </div>
-            </button>
+        `;
+        
+        // Add styles
+        const styles = `
+            <style>
+                #everse-chat-toggle {
+                    position: fixed;
+                    bottom: 25px;
+                    right: 25px;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #0D1B2A 0%, #1B5E20 100%);
+                    border: none;
+                    cursor: pointer;
+                    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+                    z-index: 10000;
+                    transition: all 0.3s ease;
+                }
+                #everse-chat-toggle:hover {
+                    transform: scale(1.1);
+                    background: linear-gradient(135deg, #13294B 0%, #2E7D32 100%);
+                }
+                #everse-chat-iframe {
+                    position: fixed;
+                    bottom: 95px;
+                    right: 25px;
+                    width: 380px;
+                    height: 600px;
+                    border: none;
+                    border-radius: 16px;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                    z-index: 10000;
+                    display: none;
+                }
+                #everse-chat-iframe.active {
+                    display: block;
+                }
+                @keyframes pulse {
+                    0% { transform: scale(1); opacity: 1; }
+                    50% { transform: scale(1.2); opacity: 0.7; }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+                @media (max-width: 480px) {
+                    #everse-chat-iframe {
+                        width: 90vw;
+                        height: 70vh;
+                        right: 5vw;
+                        bottom: 80px;
+                    }
+                }
+            </style>
         `;
 
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = chatHTML;
-        document.body.appendChild(wrapper);
+        // Create iframe
+        const iframe = document.createElement('iframe');
+        iframe.id = 'everse-chat-iframe';
+        iframe.src = 'https://everse-chatbot.onrender.com/chat-widget';
+        iframe.allow = 'microphone';
 
-        // Inject JavaScript asynchronously
-        const script = document.createElement('script');
-        script.src = `${CHAT_SERVER_URL}/chat-widget.js`;
-        script.async = true;
-        script.onload = () => console.log('✅ Everse Chat Widget JS loaded');
-        document.head.appendChild(script);
+        // Add to page
+        document.head.insertAdjacentHTML('beforeend', styles);
+        document.body.appendChild(toggleButton);
+        document.body.appendChild(iframe);
 
-        this.isInitialized = true;
+        // Add toggle functionality
+        toggleButton.addEventListener('click', () => {
+            iframe.classList.toggle('active');
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!iframe.contains(e.target) && !toggleButton.contains(e.target) && iframe.classList.contains('active')) {
+                iframe.classList.remove('active');
+            }
+        });
+
         console.log('✅ Everse Chat Widget injected');
     }
 }
 
 // Initialize
 new ShopifyChatIntegration();
-
