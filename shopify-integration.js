@@ -1,4 +1,4 @@
-// Everse Chat Widget - Shopify Integration
+// Everse Shopify Chat Integration
 class ShopifyChatIntegration {
     constructor() {
         this.isInitialized = false;
@@ -25,7 +25,7 @@ class ShopifyChatIntegration {
         cssLink.onload = () => console.log('✅ Everse Chat Widget CSS loaded');
         document.head.appendChild(cssLink);
 
-        // Chat HTML Structure
+        // Inject HTML structure
         const chatHTML = `
             <div id="chat-widget">
                 <div id="chat-header">
@@ -70,10 +70,11 @@ class ShopifyChatIntegration {
             </div>
             <button id="chat-toggle">
                 <div class="toggle-content">
+                    <!-- Three-line logo with white lines for visibility -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="6" width="18" height="2" fill="#6B7280"/>
-                        <rect x="3" y="11" width="18" height="2" fill="#0D1B2A"/>
-                        <rect x="3" y="16" width="18" height="2" fill="#1B5E20"/>
+                        <rect x="4" y="7" width="16" height="2" fill="white"/>
+                        <rect x="4" y="11" width="16" height="2" fill="white"/>
+                        <rect x="4" y="15" width="16" height="2" fill="white"/>
                     </svg>
                     <span class="pulse-dot"></span>
                 </div>
@@ -92,7 +93,7 @@ class ShopifyChatIntegration {
         document.head.appendChild(script);
 
         this.isInitialized = true;
-        console.log('✅ Everse Chat Widget injected successfully');
+        console.log('✅ Everse Chat Widget injected');
     }
 }
 
