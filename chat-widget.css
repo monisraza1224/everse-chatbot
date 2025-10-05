@@ -5,11 +5,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    background: #0D1B2A;
     color: white;
     border: none;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
     z-index: 10000;
     transition: all 0.3s ease;
     display: flex;
@@ -20,7 +20,8 @@
 
 #chat-toggle:hover {
     transform: scale(1.1);
-    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
+    background: #13294B;
+    box-shadow: 0 6px 25px rgba(76, 175, 80, 0.6);
 }
 
 .toggle-content {
@@ -36,7 +37,7 @@
     right: -2px;
     width: 12px;
     height: 12px;
-    background: #10b981;
+    background: #00C853;
     border-radius: 50%;
     border: 2px solid white;
     animation: pulse 2s infinite;
@@ -70,7 +71,7 @@
 }
 
 #chat-header {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
+    background: #0D1B2A;
     color: white;
     padding: 20px;
     display: flex;
@@ -88,7 +89,7 @@
 .avatar {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #4CAF50;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -117,7 +118,7 @@
     content: "";
     width: 8px;
     height: 8px;
-    background: #10b981;
+    background: #00C853;
     border-radius: 50%;
     display: inline-block;
 }
@@ -176,36 +177,36 @@
     flex-shrink: 0;
 }
 
-/* CUSTOMER MESSAGE STYLES - BLUE */
+/* CUSTOMER MESSAGE STYLES */
 .user-message {
     flex-direction: row-reverse;
 }
 
 .user-message .message-avatar {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #4CAF50;
     color: white;
 }
 
 .user-message .message-content {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #4CAF50;
     color: white;
     border: none;
-    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 2px 12px rgba(76, 175, 80, 0.3);
 }
 
-/* AGENT MESSAGE STYLES - WHITE */
+/* AGENT MESSAGE STYLES */
 .bot-message {
     flex-direction: row;
 }
 
 .bot-message .message-avatar {
-    background: linear-gradient(135deg, #6b7280, #4b5563);
+    background: #0D1B2A;
     color: white;
 }
 
 .bot-message .message-content {
-    background: white;
-    color: #1f2937;
+    background: #FFFFFF;
+    color: #333333;
     border: 1px solid #e5e7eb;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -243,7 +244,7 @@
     text-align: center;
 }
 
-/* Product links in CUSTOMER messages (blue background) */
+/* Product links in CUSTOMER messages */
 .user-message .product-link {
     background: rgba(255, 255, 255, 0.15);
     color: white;
@@ -255,24 +256,24 @@
     transform: translateY(-1px);
 }
 
-/* Product links in AGENT messages (white background) */
+/* Product links in AGENT messages */
 .bot-message .product-link {
-    background: linear-gradient(135deg, #059669, #047857);
+    background: #4CAF50;
     color: white;
     border: none;
-    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
 }
 
 .bot-message .product-link:hover {
-    background: linear-gradient(135deg, #047857, #065f46);
+    background: #45a049;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
 }
 
 /* Contact email styling */
 .contact-email {
     display: inline-block;
-    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    background: #1E6E78;
     color: white;
     padding: 8px 16px;
     border-radius: 8px;
@@ -281,29 +282,29 @@
     font-size: 13px;
     font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 2px 8px rgba(30, 110, 120, 0.3);
 }
 
 .contact-email:hover {
-    background: linear-gradient(135deg, #6d28d9, #5b21b6);
+    background: #1a616a;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    box-shadow: 0 4px 12px rgba(30, 110, 120, 0.4);
 }
 
 /* Support notice styling */
 .support-notice {
-    background: #fef3c7;
-    border: 1px solid #fcd34d;
+    background: #FFF3CD;
+    border: 1px solid #E0A800;
     border-radius: 12px;
     padding: 14px;
     margin: 8px 0;
     font-size: 13px;
-    color: #92400e;
-    border-left: 4px solid #f59e0b;
+    color: #856404;
+    border-left: 4px solid #E0A800;
 }
 
 .support-notice strong {
-    color: #78350f;
+    color: #664d03;
 }
 
 .warranty-notice {
@@ -356,16 +357,17 @@
     transition: all 0.3s ease;
     background: white;
     font-family: inherit;
+    color: #333333;
 }
 
 #chat-input:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
 #send-button {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
+    background: #4CAF50;
     color: white;
     border: none;
     padding: 14px 18px;
@@ -380,7 +382,7 @@
 
 #send-button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(30, 41, 59, 0.4);
+    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
 }
 
 #send-button:active {
