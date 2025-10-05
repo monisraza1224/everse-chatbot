@@ -1,53 +1,79 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+const { chatWithAI } = require('./openai-service');
+const { getProducts, searchProducts } = require('./shopify-api');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// CORS for production
-app.use(cors({
-  origin: ['https://eversetraveltech.com', 'http://localhost:3000'],
-  credentials: true
-}));
-
 app.use(express.json());
-app.use(express.static(__dirname));
 
-// Import routes
-const chatRoutes = require('./openai-service');
-const shopifyRoutes = require('./shopify-api');
+// Serve static files (CSS, JS, etc.)
+app.use(express.static(path.join(__dirname)));
 
-// Use routes
-app.use('/api/chat', chatRoutes);
-app.use('/api/shopify', shopifyRoutes);
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Everse Chatbot API is running' });
+// Serve shopify-integration.js
+app.get('/shopify-integration.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.sendFile(path.join(__dirname, 'shopify-integration.js'));
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Everse Chatbot API', 
-    status: 'running',
-    endpoints: {
-      chat: 'POST /api/chat',
-      health: '/health',
-      widget: '/chat-widget'
+// Serve chat-widget.css
+app.get('/chat-widget.css', (req, res) => {
+    res.setHeader('Content-Type', 'text/css');
+    res.sendFile(path.join(__dirname, 'chat-widget.css'));
+});
+
+// Serve chat-widget.js
+app.get('/chat-widget.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.sendFile(path.join(__dirname, 'chat-widget.js'));
+});
+
+// Chat API endpoint
+app.post('/api/chat', async (req, res) => {
+    try {
+        const { message, conversationHistory = [] } = req.body;
+        
+        if (!message) {
+            return res.status(400).json({ error: 'Message is required' });
+        }
+
+        // Get products from Shopify for context
+        let products = [];
+        try {
+            products = await getProducts();
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+
+        const response = await chatWithAI(message, conversationHistory, products);
+        res.json({ response });
+    } catch (error) {
+        console.error('Chat error:', error);
+        res.status(500).json({ 
+            error: 'Internal server error',
+            response: 'Sorry, I encountered an error. Please try again or contact our support team directly at Sales@eversetraveltech.com.'
+        });
     }
-  });
 });
 
-// Serve chat widget
-app.get('/chat-widget', (req, res) => {
-  res.sendFile(path.join(__dirname, 'chat-widget.html'));
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({ status: 'OK', message: 'Everse Chatbot is running' });
 });
 
+// Product search endpoint (if needed)
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await getProducts();
+        res.json(products);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ error: 'Failed to fetch products' });
+    }
+});
+
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-  console.log(`🚀 Everse Chatbot running on port ${PORT}`);
-  console.log(`🌐 Ready for production`);
+    console.log(`🚀 Everse Chatbot running on port ${PORT}`);
+    console.log('🌐 Ready for production');
+    console.log(`📁 Static files serving from: ${__dirname}`);
 });
-
