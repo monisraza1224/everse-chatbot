@@ -23,10 +23,11 @@ class ShopifyChatIntegration {
         // Use relative paths for production
         const CHAT_SERVER_URL = 'https://everse-chatbot.onrender.com';
 
-        // Inject CSS
+        // Inject CSS asynchronously
         const cssLink = document.createElement('link');
         cssLink.rel = 'stylesheet';
         cssLink.href = `${CHAT_SERVER_URL}/chat-widget.css`;
+        cssLink.onload = () => console.log('✅ Everse Chat Widget CSS loaded');
         document.head.appendChild(cssLink);
 
         // Inject HTML structure
@@ -74,6 +75,7 @@ class ShopifyChatIntegration {
             </div>
             <button id="chat-toggle">
                 <div class="toggle-content">
+                    <!-- Replace this with your logo when ready -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
                     </svg>
@@ -86,9 +88,11 @@ class ShopifyChatIntegration {
         wrapper.innerHTML = chatHTML;
         document.body.appendChild(wrapper);
 
-        // Inject JavaScript
+        // Inject JavaScript asynchronously
         const script = document.createElement('script');
         script.src = `${CHAT_SERVER_URL}/chat-widget.js`;
+        script.async = true;
+        script.onload = () => console.log('✅ Everse Chat Widget JS loaded');
         document.head.appendChild(script);
 
         this.isInitialized = true;
@@ -98,3 +102,4 @@ class ShopifyChatIntegration {
 
 // Initialize when loaded
 new ShopifyChatIntegration();
+
