@@ -9,6 +9,11 @@ app.use(express.json());
 // Serve static files (CSS, JS, etc.)
 app.use(express.static(path.join(__dirname)));
 
+// Serve the main chat widget page
+app.get('/chat-widget', (req, res) => {
+    res.sendFile(path.join(__dirname, 'chat-widget.html'));
+});
+
 // Serve shopify-integration.js
 app.get('/shopify-integration.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
@@ -75,5 +80,10 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`🚀 Everse Chatbot running on port ${PORT}`);
     console.log('🌐 Ready for production');
-    console.log(`📁 Static files serving from: ${__dirname}`);
+    console.log('📊 Available routes:');
+    console.log('   GET  /chat-widget');
+    console.log('   GET  /shopify-integration.js');
+    console.log('   GET  /chat-widget.css');
+    console.log('   GET  /chat-widget.js');
+    console.log('   POST /api/chat');
 });
