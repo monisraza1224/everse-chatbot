@@ -13,6 +13,10 @@ app.use(express.static(path.join(__dirname)));
 app.get('/chat-widget', (req, res) => {
     res.sendFile(path.join(__dirname, 'chat-widget.html'));
 });
+// Serve the actual chat interface (without the toggle button)
+app.get('/chat-interface', (req, res) => {
+    res.sendFile(path.join(__dirname, 'chat-interface.html'));
+});
 
 // Serve shopify-integration.js
 app.get('/shopify-integration.js', (req, res) => {
@@ -87,3 +91,4 @@ app.listen(PORT, () => {
     console.log('   GET  /chat-widget.js');
     console.log('   POST /api/chat');
 });
+
