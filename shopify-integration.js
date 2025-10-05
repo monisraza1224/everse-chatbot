@@ -1,4 +1,4 @@
-// Professional Shopify Chat Integration
+// Everse Chat Widget - Shopify Integration
 class ShopifyChatIntegration {
     constructor() {
         this.isInitialized = false;
@@ -6,7 +6,6 @@ class ShopifyChatIntegration {
     }
 
     init() {
-        // Wait for Shopify page to load
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.injectChatWidget());
         } else {
@@ -15,12 +14,8 @@ class ShopifyChatIntegration {
     }
 
     injectChatWidget() {
-        // Don't inject if already exists
-        if (document.getElementById('chat-widget')) {
-            return;
-        }
+        if (document.getElementById('chat-widget')) return;
 
-        // Use relative paths for production
         const CHAT_SERVER_URL = 'https://everse-chatbot.onrender.com';
 
         // Inject CSS asynchronously
@@ -30,7 +25,7 @@ class ShopifyChatIntegration {
         cssLink.onload = () => console.log('✅ Everse Chat Widget CSS loaded');
         document.head.appendChild(cssLink);
 
-        // Inject HTML structure
+        // Chat HTML Structure
         const chatHTML = `
             <div id="chat-widget">
                 <div id="chat-header">
@@ -75,9 +70,10 @@ class ShopifyChatIntegration {
             </div>
             <button id="chat-toggle">
                 <div class="toggle-content">
-                    <!-- Replace this with your logo when ready -->
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="6" width="18" height="2" fill="#6B7280"/>
+                        <rect x="3" y="11" width="18" height="2" fill="#0D1B2A"/>
+                        <rect x="3" y="16" width="18" height="2" fill="#1B5E20"/>
                     </svg>
                     <span class="pulse-dot"></span>
                 </div>
@@ -96,10 +92,10 @@ class ShopifyChatIntegration {
         document.head.appendChild(script);
 
         this.isInitialized = true;
-        console.log('✅ Everse Professional Chat Widget injected into Shopify store');
+        console.log('✅ Everse Chat Widget injected successfully');
     }
 }
 
-// Initialize when loaded
+// Initialize
 new ShopifyChatIntegration();
 
