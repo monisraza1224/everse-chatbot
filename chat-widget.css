@@ -1,12 +1,12 @@
+/* Everse Chat Widget - Complete Styling */
 #chat-toggle {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 60px;
-    height: 60px;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: #0D1B2A;
-    color: white;
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
@@ -15,12 +15,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: Inter, Helvetica, Arial, sans-serif;
 }
 
 #chat-toggle:hover {
-    transform: scale(1.1);
     background: #13294B;
+    transform: scale(1.05);
     box-shadow: 0 6px 25px rgba(76, 175, 80, 0.6);
 }
 
@@ -51,8 +51,8 @@
 
 #chat-widget {
     position: fixed;
-    bottom: 95px;
-    right: 25px;
+    bottom: 90px;
+    right: 24px;
     width: 380px;
     height: 600px;
     background: white;
@@ -61,7 +61,7 @@
     display: none;
     flex-direction: column;
     z-index: 10000;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: Inter, Helvetica, Arial, sans-serif;
     border: 1px solid #e5e7eb;
     overflow: hidden;
 }
@@ -77,7 +77,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px 10px 0 0;
 }
 
 .header-content {
@@ -147,7 +147,7 @@
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background: #f8fafc;
+    background: #FFFFFF;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -177,7 +177,7 @@
     flex-shrink: 0;
 }
 
-/* CUSTOMER MESSAGE STYLES */
+/* USER MESSAGES - Green */
 .user-message {
     flex-direction: row-reverse;
 }
@@ -194,7 +194,7 @@
     box-shadow: 0 2px 12px rgba(76, 175, 80, 0.3);
 }
 
-/* AGENT MESSAGE STYLES */
+/* BOT MESSAGES - Light Gray */
 .bot-message {
     flex-direction: row;
 }
@@ -205,7 +205,7 @@
 }
 
 .bot-message .message-content {
-    background: #FFFFFF;
+    background: #F9FAFB;
     color: #333333;
     border: 1px solid #e5e7eb;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -228,7 +228,7 @@
     border-bottom-left-radius: 6px;
 }
 
-/* Product links styling */
+/* Product Links */
 .product-link {
     display: inline-block;
     background: rgba(255, 255, 255, 0.15);
@@ -244,7 +244,6 @@
     text-align: center;
 }
 
-/* Product links in CUSTOMER messages */
 .user-message .product-link {
     background: rgba(255, 255, 255, 0.15);
     color: white;
@@ -256,7 +255,6 @@
     transform: translateY(-1px);
 }
 
-/* Product links in AGENT messages */
 .bot-message .product-link {
     background: #4CAF50;
     color: white;
@@ -270,28 +268,7 @@
     box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
 }
 
-/* Contact email styling */
-.contact-email {
-    display: inline-block;
-    background: #1E6E78;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    margin: 4px 0;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(30, 110, 120, 0.3);
-}
-
-.contact-email:hover {
-    background: #1a616a;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(30, 110, 120, 0.4);
-}
-
-/* Support notice styling */
+/* Support Notice */
 .support-notice {
     background: #FFF3CD;
     border: 1px solid #E0A800;
@@ -299,45 +276,31 @@
     padding: 14px;
     margin: 8px 0;
     font-size: 13px;
-    color: #856404;
+    color: #333333;
     border-left: 4px solid #E0A800;
 }
 
 .support-notice strong {
-    color: #664d03;
+    color: #333333;
 }
 
-.warranty-notice {
-    background: #fffbeb;
-    border: 1px solid #fef3c7;
-    border-radius: 12px;
-    padding: 14px;
-    margin: 8px 0;
+.contact-email {
+    display: inline-block;
+    background: #1E6E78;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin: 4px 0;
     font-size: 13px;
-    color: #92400e;
-    border-left: 4px solid #f59e0b;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
 }
 
-.shipping-info {
-    background: #eff6ff;
-    border: 1px solid #dbeafe;
-    border-radius: 12px;
-    padding: 14px;
-    margin: 8px 0;
-    font-size: 13px;
-    color: #1e40af;
-    border-left: 4px solid #3b82f6;
-}
-
-.support-tip {
-    background: #f0fdf4;
-    border: 1px solid #dcfce7;
-    border-radius: 12px;
-    padding: 14px;
-    margin: 8px 0;
-    font-size: 13px;
-    color: #166534;
-    border-left: 4px solid #22c55e;
+.contact-email:hover {
+    background: #1a616a;
+    transform: translateY(-1px);
 }
 
 #chat-input-container {
@@ -352,7 +315,7 @@
     flex: 1;
     padding: 14px 18px;
     border: 1px solid #d1d5db;
-    border-radius: 14px;
+    border-radius: 8px;
     font-size: 14px;
     transition: all 0.3s ease;
     background: white;
@@ -366,12 +329,16 @@
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
+#chat-input::placeholder {
+    color: #999999;
+}
+
 #send-button {
     background: #4CAF50;
     color: white;
     border: none;
-    padding: 14px 18px;
-    border-radius: 14px;
+    padding: 14px;
+    border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -385,16 +352,12 @@
     box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
 }
 
-#send-button:active {
-    transform: translateY(0);
-}
-
 .typing-indicator {
     display: flex;
     gap: 12px;
     align-items: center;
     padding: 14px 18px;
-    background: white;
+    background: #F9FAFB;
     border: 1px solid #e5e7eb;
     border-radius: 18px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -423,7 +386,7 @@
     30% { transform: translateY(-4px); opacity: 1; }
 }
 
-/* Scrollbar styling */
+/* Scrollbar */
 #chat-messages::-webkit-scrollbar {
     width: 6px;
 }
@@ -442,7 +405,7 @@
     background: #94a3b8;
 }
 
-/* Responsive design */
+/* Mobile Responsive */
 @media (max-width: 480px) {
     #chat-widget {
         width: 90vw;
@@ -453,13 +416,14 @@
     }
     
     #chat-toggle {
+        width: 48px;
+        height: 48px;
         bottom: 20px;
         right: 20px;
-        width: 55px;
-        height: 55px;
     }
     
     .message-content {
         max-width: 240px;
     }
 }
+
