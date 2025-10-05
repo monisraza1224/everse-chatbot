@@ -68,7 +68,7 @@ class ChatWidget {
         this.showTypingIndicator();
 
         try {
-  const response = await fetch('https://everse-chatbot.onrender.com/api/chat', {
+            const response = await fetch('https://everse-chatbot.onrender.com/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ class ChatWidget {
             this.removeTypingIndicator();
 
             if (data.response) {
-                this.addMessage(data.response, 'bot');
+                this.addMessage(data.response, 'bot', true);
                 // Update conversation history
                 this.conversationHistory.push(
                     { role: 'user', content: message },
@@ -103,11 +103,11 @@ class ChatWidget {
         } catch (error) {
             console.error('Error sending message:', error);
             this.removeTypingIndicator();
-            this.addMessage('Sorry, I\'m having trouble connecting. Please check your internet connection and try again, or contact our support team directly.', 'bot');
+            this.addMessage('Sorry, I\'m having trouble connecting. Please check your internet connection and try again.', 'bot');
         }
     }
 
-    addMessage(text, sender) {
+    addMessage(text, sender, isHTML = false) {
         const messagesContainer = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
@@ -121,17 +121,17 @@ class ChatWidget {
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
         
-        // Process text and convert product links
-        const processedText = this.processMessageText(text);
-        contentDiv.innerHTML = processedText;
+        if (isHTML) {
+            contentDiv.innerHTML = text;
+        } else {
+            contentDiv.textContent = text;
+        }
         
         // Append avatar and content in correct order
         if (sender === 'user') {
-            // User message: content first, then avatar (right side)
             messageDiv.appendChild(contentDiv);
             messageDiv.appendChild(avatarDiv);
         } else {
-            // Bot message: avatar first, then content (left side)
             messageDiv.appendChild(avatarDiv);
             messageDiv.appendChild(contentDiv);
         }
@@ -140,27 +140,10 @@ class ChatWidget {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    processMessageText(text) {
-        // Convert any HTML links to styled product links
-        let processedText = text.replace(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g, (match, url, linkText) => {
-            // Clean up the link text and create proper product link
-            const cleanLinkText = linkText.replace(/→$/, '').trim();
-            return `<a href="${url}" target="_blank" class="product-link">${cleanLinkText}</a>`;
-        });
-
-        // Convert markdown-style links if any
-        processedText = processedText.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="product-link">$1</a>');
-
-        // Convert line breaks
-        processedText = processedText.replace(/\n/g, '<br>');
-
-        return processedText;
-    }
-
     showTypingIndicator() {
         const messagesContainer = document.getElementById('chat-messages');
         const typingDiv = document.createElement('div');
-        typingDiv.className = 'message bot-message typing-indicator';
+        typingDiv.className = 'message bot-message';
         typingDiv.id = 'typing-indicator';
         
         const avatarDiv = document.createElement('div');
@@ -169,11 +152,7 @@ class ChatWidget {
         
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
-        contentDiv.innerHTML = `
-            <div class="typing-dots">
-                <span></span><span></span><span></span>
-            </div>
-        `;
+        contentDiv.innerHTML = 'Typing...';
         
         typingDiv.appendChild(avatarDiv);
         typingDiv.appendChild(contentDiv);
@@ -192,5 +171,4 @@ class ChatWidget {
 // Initialize chat widget when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new ChatWidget();
-
 });
