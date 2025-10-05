@@ -1,6 +1,6 @@
 class ChatWidget {
     constructor() {
-        this.isOpen = false;
+        this.isOpen = true; // Chat opens automatically when loaded
         this.conversationHistory = [];
         this.initializeWidget();
         this.addEventListeners();
@@ -8,49 +8,30 @@ class ChatWidget {
 
     initializeWidget() {
         console.log('Everse Chat Widget initialized');
+        // Chat window opens automatically
+        document.getElementById('chat-widget').classList.add('active');
+        document.getElementById('chat-input').focus();
     }
 
     addEventListeners() {
-        // Toggle chat
-        document.getElementById('chat-toggle').addEventListener('click', () => {
-            this.toggleChat();
-        });
-
-        // Close chat
+        // Only add listeners for elements that exist in the chat window
         document.getElementById('close-chat').addEventListener('click', () => {
             this.closeChat();
         });
 
-        // Send message on button click
         document.getElementById('send-button').addEventListener('click', () => {
             this.sendMessage();
         });
 
-        // Send message on Enter key
         document.getElementById('chat-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 this.sendMessage();
             }
         });
-
-        // Auto-focus input when chat opens
-        document.getElementById('chat-widget').addEventListener('click', () => {
-            document.getElementById('chat-input').focus();
-        });
-    }
-
-    toggleChat() {
-        this.isOpen = !this.isOpen;
-        const widget = document.getElementById('chat-widget');
-        widget.classList.toggle('active');
-        
-        if (this.isOpen) {
-            document.getElementById('chat-input').focus();
-        }
     }
 
     closeChat() {
-        this.isOpen = false;
+        // When in iframe, we can't close the window, so just hide it
         document.getElementById('chat-widget').classList.remove('active');
     }
 
@@ -60,12 +41,8 @@ class ChatWidget {
 
         if (!message) return;
 
-        // Add user message to chat
         this.addMessage(message, 'user');
         input.value = '';
-
-        // Show typing indicator
-        this.showTypingIndicator();
 
         try {
             const response = await fetch('https://everse-chatbot.onrender.com/api/chat', {
@@ -80,30 +57,24 @@ class ChatWidget {
             });
 
             const data = await response.json();
-            
-            // Remove typing indicator
-            this.removeTypingIndicator();
 
             if (data.response) {
                 this.addMessage(data.response, 'bot', true);
-                // Update conversation history
                 this.conversationHistory.push(
                     { role: 'user', content: message },
                     { role: 'assistant', content: data.response }
                 );
                 
-                // Keep conversation history manageable (last 10 messages)
                 if (this.conversationHistory.length > 10) {
                     this.conversationHistory = this.conversationHistory.slice(-10);
                 }
             } else {
-                this.addMessage('Sorry, I encountered an error. Please try again or contact support directly.', 'bot');
+                this.addMessage('Sorry, I encountered an error. Please try again.', 'bot');
             }
 
         } catch (error) {
             console.error('Error sending message:', error);
-            this.removeTypingIndicator();
-            this.addMessage('Sorry, I\'m having trouble connecting. Please check your internet connection and try again.', 'bot');
+            this.addMessage('Sorry, I\'m having trouble connecting. Please try again.', 'bot');
         }
     }
 
@@ -112,12 +83,10 @@ class ChatWidget {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
         
-        // Create avatar
         const avatarDiv = document.createElement('div');
         avatarDiv.className = 'message-avatar';
         avatarDiv.textContent = sender === 'user' ? 'Y' : 'E';
         
-        // Create message content
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
         
@@ -127,7 +96,6 @@ class ChatWidget {
             contentDiv.textContent = text;
         }
         
-        // Append avatar and content in correct order
         if (sender === 'user') {
             messageDiv.appendChild(contentDiv);
             messageDiv.appendChild(avatarDiv);
@@ -138,33 +106,6 @@ class ChatWidget {
         
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    showTypingIndicator() {
-        const messagesContainer = document.getElementById('chat-messages');
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'message bot-message';
-        typingDiv.id = 'typing-indicator';
-        
-        const avatarDiv = document.createElement('div');
-        avatarDiv.className = 'message-avatar';
-        avatarDiv.textContent = 'E';
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'message-content';
-        contentDiv.innerHTML = 'Typing...';
-        
-        typingDiv.appendChild(avatarDiv);
-        typingDiv.appendChild(contentDiv);
-        messagesContainer.appendChild(typingDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    removeTypingIndicator() {
-        const typingIndicator = document.getElementById('typing-indicator');
-        if (typingIndicator) {
-            typingIndicator.remove();
-        }
     }
 }
 
