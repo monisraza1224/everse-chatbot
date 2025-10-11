@@ -1,5 +1,11 @@
 const OpenAI = require('openai');
 
+// Check if API key exists first
+if (!process.env.OPENAI_API_KEY) {
+    console.error('ERROR: OPENAI_API_KEY environment variable is missing!');
+    console.error('Please add OPENAI_API_KEY to your Render environment variables');
+}
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
@@ -222,6 +228,11 @@ Focus on quick, helpful responses. Provide essential information only. Keep it s
 
 async function chatWithAI(message, conversationHistory = []) {
   try {
+    // Check if API key is available
+    if (!process.env.OPENAI_API_KEY) {
+      return "I'm currently in setup mode. Please contact Sales@eversetraveltech.com for immediate assistance. Our team is available Monday to Friday 8am-5:30pm.";
+    }
+
     const enhancedPrompt = `${SYSTEM_PROMPT}
 
 Customer Question: "${message}"
@@ -253,7 +264,13 @@ Provide a quick, helpful response. Recommend relevant products using exact produ
 
   } catch (error) {
     console.error('OpenAI API error:', error);
-    throw new Error('Sorry, I encountered an error. Please try again or contact Sales@eversetraveltech.com.');
+    
+    // Return helpful error message instead of crashing
+    if (error.code === 'invalid_api_key') {
+      return "I'm currently being updated. Please email Sales@eversetraveltech.com for assistance and we'll help you right away.";
+    }
+    
+    return "Sorry, I'm having trouble connecting right now. Please contact Sales@eversetraveltech.com for immediate support.";
   }
 }
 
