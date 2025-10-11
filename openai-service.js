@@ -169,6 +169,7 @@ RETURNS & REFUNDS POLICY:
 - No change of mind returns
 - Refunds: 15% restocking fee; shipping is not refundable
 - Store credit option: only shipping deducted; no restocking fee
+- Store location is Perth,Australia 
 
 WARRANTY POLICY:
 - 1 Year Warranty minimum
@@ -319,3 +320,4 @@ function findBestProductMatch(productName) {
 }
 
 module.exports = { chatWithAI };
+
