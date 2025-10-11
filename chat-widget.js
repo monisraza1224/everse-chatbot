@@ -14,11 +14,17 @@ class ChatWidget {
     }
 
     addEventListeners() {
-        // Only add listeners for elements that exist in the chat window
+        // Chat button toggle
+        document.getElementById('chatButton').addEventListener('click', () => {
+            this.toggleChat();
+        });
+
+        // Close chat
         document.getElementById('close-chat').addEventListener('click', () => {
             this.closeChat();
         });
 
+        // Send message
         document.getElementById('send-button').addEventListener('click', () => {
             this.sendMessage();
         });
@@ -30,9 +36,19 @@ class ChatWidget {
         });
     }
 
+    toggleChat() {
+        const chatWidget = document.getElementById('chat-widget');
+        chatWidget.classList.toggle('active');
+        this.isOpen = chatWidget.classList.contains('active');
+        
+        if (this.isOpen) {
+            document.getElementById('chat-input').focus();
+        }
+    }
+
     closeChat() {
-        // When in iframe, we can't close the window, so just hide it
         document.getElementById('chat-widget').classList.remove('active');
+        this.isOpen = false;
     }
 
     async sendMessage() {
@@ -83,10 +99,6 @@ class ChatWidget {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
         
-        const avatarDiv = document.createElement('div');
-        avatarDiv.className = 'message-avatar';
-        avatarDiv.textContent = sender === 'user' ? 'Y' : 'E';
-        
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
         
@@ -96,14 +108,7 @@ class ChatWidget {
             contentDiv.textContent = text;
         }
         
-        if (sender === 'user') {
-            messageDiv.appendChild(contentDiv);
-            messageDiv.appendChild(avatarDiv);
-        } else {
-            messageDiv.appendChild(avatarDiv);
-            messageDiv.appendChild(contentDiv);
-        }
-        
+        messageDiv.appendChild(contentDiv);
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
