@@ -1,65 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Everse Chat</title>
-    <link rel="stylesheet" href="chat-widget.css">
-</head>
-    <button id="chat-toggle">
-    <div class="toggle-content">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect x="4" y="7" width="16" height="2" fill="white"/>
-            <rect x="4" y="11" width="16" height="2" fill="white"/>
-            <rect x="4" y="15" width="16" height="2" fill="white"/>
-        </svg>
-        <span class="pulse-dot"></span>
+<div id="everse-chat-widget">
+  <!-- Chat Button -->
+  <div class="chat-button" id="chatButton">
+    <div class="speech-bubble-icon">
+      <div class="chat-bar bar-top"></div>
+      <div class="chat-bar bar-middle"></div>
+      <div class="chat-bar bar-bottom"></div>
     </div>
-</button>
-<body>
-    <div id="chat-widget">
-        <div id="chat-header">
-            <div class="header-content">
-                <div class="avatar">E</div>
-                <div class="header-text">
-                    <h3>Everse Support</h3>
-                    <span class="status">Online • Typically replies instantly</span>
-                </div>
-            </div>
-            <button id="close-chat">×</button>
+  </div>
+
+  <!-- Chat Window -->
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="header-content">
+        <div class="chat-title">Everse Support</div>
+        <div class="chat-status">
+          <span class="status-dot"></span>
+          Online · Typically replies instantly
         </div>
-        <div id="chat-messages">
-            <div class="message bot-message">
-                <div class="message-avatar">E</div>
-                <div class="message-content">
-                    <strong>Welcome to Everse Support</strong><br><br>
-                    I'm here to help you with:
-                    <br><br>
-                    • Product recommendations & pricing<br>
-                    • Technical specifications<br>
-                    • Installation guidance<br>
-                    • Shipping & warranty information<br>
-                    <br>
-                    <div class="support-notice">
-                        <strong>Need human assistance?</strong><br>
-                        Contact our sales team at <a href="mailto:Sales@eversetraveltech.com" class="contact-email">Sales@eversetraveltech.com</a> for personalized support.
-                    </div>
-                    <br>
-                    How can I assist you today?
-                </div>
-            </div>
-        </div>
-        <div id="chat-input-container">
-            <input type="text" id="chat-input" placeholder="Ask about products, pricing, or support..." maxlength="500">
-            <button id="send-button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                </svg>
-            </button>
-        </div>
+      </div>
+      <button class="close-chat" id="closeChat">×</button>
     </div>
-
-    <script src="chat-widget.js"></script>
-</body>
-</html>
-
+    
+    <div class="chat-body">
+      <div class="welcome-section">
+        <h3>Welcome to Everse Support</h3>
+        <p>I'm here to help you with:</p>
+        <ul>
+          <li>Product recommendations & pricing</li>
+          <li>Technical specifications</li>
+          <li>Installation guidance</li>
+          <li>Shipping & warranty information</li>
+        </ul>
+      </div>
+      
+      <div class="messages-container" id="messagesContainer">
+        <!-- Messages will appear here -->
+      </div>
+      
+      <div class="human-assistance">
+        <div class="assistance-header">
+          <strong>Need human assistance?</strong>
+        </div>
+        <p>Contact our sales team for personalized support.</p>
+        <a href="mailto:sales@eversetraveltech.com" class="email-chip">
+          Sales@eversetraveltech.com
+        </a>
+        <p class="assistance-note">Ask about products, pricing, or support</p>
+      </div>
+    </div>
+    
+    <div class="chat-footer">
+      <div class="input-container">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+        <button class="send-button" id="sendButton">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
