@@ -1,4 +1,4 @@
-// Everse Shopify Chat Integration - "E" Shape with Centered Lines & Long Tail
+// Everse Shopify Chat Integration - Exact Measurements from Analysis
 (function() {
     'use strict';
     
@@ -41,25 +41,30 @@
                 background: white;
             `;
 
-            // Create "E" shape speech bubble button with centered lines
+            // Create speech bubble with EXACT measurements
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
-                <div class="e-shape">
-                    <div class="e-line e-top"></div>
-                    <div class="e-line e-middle"></div>
-                    <div class="e-line e-bottom"></div>
+                <div class="bubble-inner">
+                    <div class="bar-group">
+                        <div class="bar bar-top"></div>
+                        <div class="bar bar-middle"></div>
+                        <div class="bar bar-bottom"></div>
+                    </div>
+                    <svg class="tail" viewBox="0 0 100 109" preserveAspectRatio="none">
+                        <path d="M 18,100 L 6,109 L 12,100 Z" fill="#000000"/>
+                    </svg>
                 </div>
             `;
             toggleButton.style.cssText = `
                 position: fixed;
                 bottom: 25px;
                 right: 25px;
-                width: 60px;
-                height: 60px;
+                width: 70px;
+                height: 70px;
                 background: #FFFFFF;
-                border: 2px solid #000000;
-                border-radius: 14px 14px 14px 4px;
+                border: 2.5px solid #000000;
+                border-radius: 12% 12% 12% 12%;
                 cursor: pointer;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
                 display: flex;
@@ -70,67 +75,75 @@
                 animation: chatBounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
                 animation-delay: 0.5s;
                 transition: all 0.3s ease;
+                overflow: visible;
             `;
 
-            // Add styles for centered "E" shape with longer tail
+            // Add EXACT styles based on your measurements
             const styles = document.createElement('style');
             styles.textContent = `
-                /* Longer speech bubble tail at lower left corner */
-                #everse-chat-toggle::before {
-                    content: '';
-                    position: absolute;
-                    bottom: -10px;
-                    left: 6px;
-                    width: 0;
-                    height: 0;
-                    border-left: 10px solid transparent;
-                    border-right: 10px solid transparent;
-                    border-top: 10px solid #000000;
-                    transform: rotate(-45deg);
-                }
-                #everse-chat-toggle::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -7px;
-                    left: 8px;
-                    width: 0;
-                    height: 0;
-                    border-left: 8px solid transparent;
-                    border-right: 8px solid transparent;
-                    border-top: 8px solid #FFFFFF;
-                    transform: rotate(-45deg);
-                    z-index: 2;
+                .bubble-inner {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: inherit;
+                    background: #FFFFFF;
                 }
 
-                /* "E" shape styling - centered lines */
-                .e-shape {
+                .bar-group {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 4px;
-                    position: relative;
-                    z-index: 3;
+                    gap: 5px;
                     width: 100%;
+                    height: 30%;
+                    justify-content: center;
                 }
 
-                .e-line {
-                    height: 3px;
-                    border-radius: 2px;
+                .bar {
+                    height: 6px;
+                    border-radius: 3px;
                     background: #000;
                 }
 
-                /* "E" shape lines - centered, middle line shorter */
-                .e-top {
-                    width: 22px;
-                    background-color: #8B8E90;
+                /* EXACT measurements from your analysis */
+                .bar-top {
+                    width: 20.31%;
+                    background-color: #9b9b9b;
+                    margin-left: 41.88%;
+                    margin-right: auto;
                 }
-                .e-middle {
-                    width: 18px;  /* Shorter than top and bottom */
-                    background-color: #317A87;
+
+                .bar-middle {
+                    width: 17.37%;
+                    background-color: #5390a2;
+                    margin-left: 39.64%;
+                    margin-right: auto;
                 }
-                .e-bottom {
-                    width: 22px;
-                    background-color: #317A87;
+
+                .bar-bottom {
+                    width: 20.87%;
+                    background-color: #5290a2;
+                    margin-left: 37.54%;
+                    margin-right: auto;
+                }
+
+                /* Tail with EXACT geometric measurements */
+                .tail {
+                    position: absolute;
+                    bottom: -9%;
+                    left: 6%;
+                    width: 12%;
+                    height: 9%;
+                    z-index: -1;
+                }
+
+                /* Bubble outline with proper rounded corners */
+                #everse-chat-toggle {
+                    border-radius: 12% / 12%;
+                    position: relative;
                 }
 
                 #everse-chat-toggle:hover {
@@ -167,8 +180,13 @@
                     #everse-chat-toggle {
                         bottom: 15px;
                         right: 15px;
-                        width: 55px;
-                        height: 55px;
+                        width: 60px;
+                        height: 60px;
+                    }
+                    
+                    .bar {
+                        height: 5px;
+                        border-radius: 2.5px;
                     }
                 }
             `;
@@ -194,7 +212,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget (Centered "E" Shape with Long Tail) injected');
+            console.log('✅ Everse Chat Widget (Exact Measurements) injected');
         }
     }
 
