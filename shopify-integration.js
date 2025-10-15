@@ -1,4 +1,4 @@
-// Everse Shopify Chat Integration - Rectangular Button Design
+// Everse Shopify Chat Integration - Speech Bubble Design
 (function() {
     'use strict';
     
@@ -35,104 +35,131 @@
             iframe.src = 'https://everse-chatbot.onrender.com/chat-widget';
             iframe.style.cssText = `
                 position: fixed;
-                bottom: 100px;
-                right: 25px;
+                bottom: 120px;
+                right: 30px;
                 width: 380px;
                 height: 600px;
                 border: none;
-                border-radius: 12px;
+                border-radius: 16px;
                 box-shadow: 0 20px 60px rgba(0,0,0,0.15);
                 z-index: 10000;
                 display: none;
             `;
             iframe.allow = 'microphone';
 
-            // Create rectangular chat toggle button
+            // Create speech bubble chat toggle button
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
-                <div class="chat-icon">
-                    <div class="chat-line line-1"></div>
-                    <div class="chat-line line-2"></div>
-                    <div class="chat-line line-3"></div>
+                <div class="chat-lines">
+                    <div class="line line-top"></div>
+                    <div class="line line-middle"></div>
+                    <div class="line line-bottom"></div>
                 </div>
-                <span class="chat-text">Chat</span>
             `;
             toggleButton.style.cssText = `
                 position: fixed;
                 bottom: 30px;
                 right: 30px;
-                width: 120px;
-                height: 50px;
-                background: linear-gradient(135deg, #3A7C84 0%, #2A5C63 100%);
-                border: none;
-                border-radius: 8px;
+                width: 70px;
+                height: 70px;
+                background: #FFFFFF;
+                border: 2.5px solid #000000;
+                border-radius: 18px 18px 18px 4px;
                 cursor: pointer;
-                box-shadow: 0 4px 15px rgba(58, 124, 132, 0.3);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
                 display: flex;
-                align-items: center;
                 justify-content: center;
-                gap: 8px;
+                align-items: center;
                 z-index: 10001;
-                transform: scale(0);
-                animation: slideIn 0.6s ease-out forwards;
+                transform: scale(0) translateY(50px);
+                animation: slideUpBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
                 animation-delay: 0.5s;
                 transition: all 0.3s ease;
-                color: white;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                font-weight: 600;
-                font-size: 14px;
             `;
 
-            // Add styles for rectangular button
+            // Add styles for speech bubble button
             const styles = document.createElement('style');
             styles.textContent = `
                 #everse-chat-toggle:hover {
-                    transform: translateY(-2px) !important;
-                    box-shadow: 0 6px 20px rgba(58, 124, 132, 0.4) !important;
-                    background: linear-gradient(135deg, #4A8C94 0%, #3A6C73 100%) !important;
+                    transform: scale(1.05) !important;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
                 }
                 
-                .chat-icon {
+                /* Diagonal tail at bottom-left */
+                #everse-chat-toggle::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -10px;
+                    left: 8px;
+                    width: 0;
+                    height: 0;
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-top: 10px solid #000000;
+                    transform: rotate(-45deg);
+                }
+
+                #everse-chat-toggle::before {
+                    content: '';
+                    position: absolute;
+                    bottom: -7px;
+                    left: 10px;
+                    width: 0;
+                    height: 0;
+                    border-left: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-top: 8px solid #FFFFFF;
+                    transform: rotate(-45deg);
+                    z-index: 1;
+                }
+                
+                .chat-lines {
                     display: flex;
                     flex-direction: column;
-                    gap: 3px;
+                    align-items: center;
+                    gap: 5px;
+                    margin-bottom: 5px;
+                    position: relative;
+                    z-index: 2;
                 }
                 
-                .chat-line {
-                    height: 2px;
-                    border-radius: 1px;
-                    background: white;
-                    transition: all 0.3s ease;
+                .line {
+                    height: 3.5px;
+                    border-radius: 2px;
+                    background: #000;
                 }
                 
-                .line-1 { width: 12px; }
-                .line-2 { width: 16px; }
-                .line-3 { width: 12px; }
-                
-                #everse-chat-toggle:hover .chat-line {
-                    width: 16px;
+                .line-top {
+                    width: 18px;
+                    background-color: #8B8E90;
                 }
                 
-                .chat-text {
-                    font-weight: 600;
+                .line-middle {
+                    width: 22px;
+                    background-color: #317A87;
+                }
+                
+                .line-bottom {
+                    width: 26px;
+                    background-color: #317A87;
                 }
                 
                 #everse-chat-iframe.active {
                     display: block !important;
                 }
                 
-                @keyframes slideIn {
+                @keyframes slideUpBounce {
                     0% {
-                        transform: translateX(100px) scale(0.8);
+                        transform: scale(0) translateY(50px);
                         opacity: 0;
                     }
-                    70% {
-                        transform: translateX(-10px) scale(1.05);
+                    60% {
+                        transform: scale(1.1) translateY(-8px);
                         opacity: 1;
                     }
                     100% {
-                        transform: translateX(0) scale(1);
+                        transform: scale(1) translateY(0);
                         opacity: 1;
                     }
                 }
@@ -142,14 +169,11 @@
                         width: 90vw !important;
                         height: 70vh !important;
                         right: 5vw !important;
-                        bottom: 90px !important;
+                        bottom: 100px !important;
                     }
                     #everse-chat-toggle {
                         bottom: 20px;
                         right: 20px;
-                        width: 110px;
-                        height: 45px;
-                        font-size: 13px;
                     }
                 }
             `;
@@ -174,7 +198,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget (Rectangular) injected successfully');
+            console.log('✅ Everse Chat Widget (Speech Bubble) injected successfully');
         }
     }
 
