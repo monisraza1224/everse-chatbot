@@ -1,7 +1,8 @@
-// Everse Shopify Chat Integration - TALLER Chat Window on RIGHT SIDE
+// Everse Shopify Chat Integration - Final Perfect Design
 (function() {
     'use strict';
     
+    // Prevent multiple initializations
     if (window.everseChatInitialized) return;
     window.everseChatInitialized = true;
 
@@ -22,26 +23,25 @@
         injectChatWidget() {
             if (this.isInitialized || document.getElementById('everse-chat-toggle')) return;
 
-            // Create iframe for chat - ACTUALLY TALLER on RIGHT SIDE
+            // Create iframe for chat
             const iframe = document.createElement('iframe');
             iframe.id = 'everse-chat-iframe';
             iframe.src = 'https://everse-chatbot.onrender.com/chat-widget';
             iframe.style.cssText = `
                 position: fixed;
-                bottom: 120px;
-                right: 30px;  // STAYS ON RIGHT SIDE
-                width: 400px;
-                height: 700px;  // ACTUALLY TALLER - from 500px to 700px
+                bottom: 100px;
+                right: 20px;
+                width: 350px;
+                height: 500px;
                 border: none;
                 border-radius: 12px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
                 z-index: 10000;
                 display: none;
                 background: white;
             `;
-            iframe.allow = 'microphone';
 
-            // Your speech bubble button - STAYS ON RIGHT SIDE
+            // Create speech bubble with smaller size and tail in lower left
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
@@ -56,10 +56,10 @@
             `;
             toggleButton.style.cssText = `
                 position: fixed;
-                bottom: 30px;
-                right: 30px;  // STAYS ON RIGHT SIDE
-                width: 60px;
-                height: 60px;
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
                 background: #FFFFFF;
                 border: 2.5px solid #000000;
                 border-radius: 14px 14px 14px 6px;
@@ -76,7 +76,7 @@
                 overflow: visible;
             `;
 
-            // Your existing styles...
+            // Add styles for smaller button with tail in lower left
             const styles = document.createElement('style');
             styles.textContent = `
                 .bubble-inner {
@@ -107,6 +107,7 @@
                     background: #000;
                 }
 
+                /* EXACT measurements from your analysis */
                 .bar-top {
                     width: 20.31%;
                     background-color: #9b9b9b;
@@ -128,6 +129,7 @@
                     margin-right: auto;
                 }
 
+                /* Tail in lower left corner */
                 .tail {
                     position: absolute;
                     bottom: -8px;
@@ -180,16 +182,16 @@
 
                 @media (max-width: 480px) {
                     #everse-chat-iframe {
-                        width: 95vw !important;
-                        height: 75vh !important;  // TALLER on mobile
-                        right: 2.5vw !important;  // STAYS ON RIGHT
-                        bottom: 100px !important;
+                        width: 90vw !important;
+                        height: 60vh !important;
+                        right: 5vw !important;
+                        bottom: 80px !important;
                     }
                     #everse-chat-toggle {
-                        bottom: 20px;
-                        right: 20px;  // STAYS ON RIGHT
-                        width: 55px;
-                        height: 55px;
+                        bottom: 15px;
+                        right: 15px;
+                        width: 50px;
+                        height: 50px;
                     }
                     
                     .bar {
@@ -215,14 +217,17 @@
                 }
             `;
 
+            // Add to page
             document.head.appendChild(styles);
             document.body.appendChild(iframe);
             document.body.appendChild(toggleButton);
 
+            // Toggle functionality
             toggleButton.addEventListener('click', () => {
                 iframe.classList.toggle('active');
             });
 
+            // Close when clicking outside
             document.addEventListener('click', (e) => {
                 if (iframe.classList.contains('active') && 
                     !iframe.contains(e.target) && 
@@ -233,7 +238,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget (TALLER 700px - RIGHT SIDE) injected');
+            console.log('✅ Everse Chat Widget (Final Perfect Design) injected');
         }
     }
 
