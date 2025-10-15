@@ -1,4 +1,4 @@
-// Everse Shopify Chat Integration - FIXED VERSION (No Duplicates)
+// Everse Shopify Chat Integration - Speech Bubble Design
 (function() {
     'use strict';
     
@@ -35,7 +35,7 @@
             iframe.src = 'https://everse-chatbot.onrender.com/chat-widget';
             iframe.style.cssText = `
                 position: fixed;
-                bottom: 95px;
+                bottom: 100px;
                 right: 25px;
                 width: 380px;
                 height: 600px;
@@ -47,65 +47,93 @@
             `;
             iframe.allow = 'microphone';
 
-            // Create chat toggle button
+            // Create speech bubble chat toggle button
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
-                <div style="position: relative; display: flex; align-items: center; justify-content: center;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                        <rect x="4" y="7" width="16" height="2"></rect>
-                        <rect x="4" y="11" width="16" height="2"></rect>
-                        <rect x="4" y="15" width="16" height="2"></rect>
-                    </svg>
-                    <span style="
-                        position: absolute;
-                        top: -2px;
-                        right: -2px;
-                        width: 12px;
-                        height: 12px;
-                        background: #00C853;
-                        border-radius: 50%;
-                        border: 2px solid white;
-                        animation: pulse 2s infinite;
-                    "></span>
+                <div class="chat-lines">
+                    <div class="line line-top"></div>
+                    <div class="line line-middle"></div>
+                    <div class="line line-bottom"></div>
                 </div>
             `;
             toggleButton.style.cssText = `
                 position: fixed;
-                bottom: 25px;
-                right: 25px;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #0D1B2A 0%, #1B5E20 100%);
-                border: none;
+                bottom: 30px;
+                right: 30px;
+                width: 70px;
+                height: 70px;
+                background: white;
+                border: 2px solid #000000;
+                border-radius: 50% 50% 50% 0;
                 cursor: pointer;
-                box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 z-index: 10001;
+                transform: scale(0);
+                animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+                animation-delay: 0.5s;
                 transition: all 0.3s ease;
             `;
 
-            // Add styles
+            // Add styles for speech bubble button
             const styles = document.createElement('style');
             styles.textContent = `
                 #everse-chat-toggle:hover {
-                    transform: scale(1.1);
-                    background: linear-gradient(135deg, #13294B 0%, #2E7D32 100%);
+                    transform: scale(1.05) !important;
+                    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
                 }
+                
+                .chat-lines {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 5px;
+                    margin-bottom: 5px;
+                }
+                
+                .line {
+                    height: 3px;
+                    border-radius: 2px;
+                }
+                
+                .line-top {
+                    width: 25px;
+                    background-color: #A7A9AC;
+                }
+                
+                .line-middle, .line-bottom {
+                    width: 30px;
+                    background-color: #3A7C84;
+                }
+                
                 #everse-chat-iframe.active {
                     display: block !important;
                 }
-                @keyframes pulse {
-                    0% { transform: scale(1); opacity: 1; }
-                    50% { transform: scale(1.2); opacity: 0.7; }
-                    100% { transform: scale(1); opacity: 1; }
+                
+                @keyframes bounceIn {
+                    0% {
+                        transform: scale(0) translateY(100px);
+                        opacity: 0;
+                    }
+                    60% {
+                        transform: scale(1.1) translateY(-10px);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: scale(1) translateY(0);
+                        opacity: 1;
+                    }
                 }
+                
                 @media (max-width: 480px) {
                     #everse-chat-iframe {
                         width: 90vw !important;
                         height: 70vh !important;
                         right: 5vw !important;
-                        bottom: 80px !important;
+                        bottom: 90px !important;
                     }
                     #everse-chat-toggle {
                         bottom: 20px;
@@ -134,7 +162,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget injected successfully');
+            console.log('✅ Everse Chat Widget (Speech Bubble) injected successfully');
         }
     }
 
