@@ -1,8 +1,7 @@
-// Everse Shopify Chat Integration - Final Perfect Design
+// Everse Shopify Chat Integration - Taller Chat Window
 (function() {
     'use strict';
     
-    // Prevent multiple initializations
     if (window.everseChatInitialized) return;
     window.everseChatInitialized = true;
 
@@ -23,7 +22,7 @@
         injectChatWidget() {
             if (this.isInitialized || document.getElementById('everse-chat-toggle')) return;
 
-            // Create iframe for chat
+            // Create iframe for chat - WITH INCREASED HEIGHT
             const iframe = document.createElement('iframe');
             iframe.id = 'everse-chat-iframe';
             iframe.src = 'https://everse-chatbot.onrender.com/chat-widget';
@@ -31,17 +30,18 @@
                 position: fixed;
                 bottom: 100px;
                 right: 20px;
-                width: 350px;
-                height: 500px;
+                width: 380px;    // Slightly wider
+                height: 700px;   // Increased height for more content
                 border: none;
                 border-radius: 12px;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 10px 40px rgba(0,0,0,0.15);
                 z-index: 10000;
                 display: none;
                 background: white;
             `;
+            iframe.allow = 'microphone';
 
-            // Create speech bubble with smaller size and tail in lower left
+            // Create speech bubble button (your existing design)
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
@@ -76,7 +76,7 @@
                 overflow: visible;
             `;
 
-            // Add styles for smaller button with tail in lower left
+            // Add your existing styles here (keep all your exact measurements)
             const styles = document.createElement('style');
             styles.textContent = `
                 .bubble-inner {
@@ -107,7 +107,7 @@
                     background: #000;
                 }
 
-                /* EXACT measurements from your analysis */
+                /* Your exact measurements */
                 .bar-top {
                     width: 20.31%;
                     background-color: #9b9b9b;
@@ -182,10 +182,10 @@
 
                 @media (max-width: 480px) {
                     #everse-chat-iframe {
-                        width: 90vw !important;
-                        height: 60vh !important;
-                        right: 5vw !important;
-                        bottom: 80px !important;
+                        width: 95vw !important;
+                        height: 75vh !important;  // Taller on mobile too
+                        right: 2.5vw !important;
+                        bottom: 90px !important;
                     }
                     #everse-chat-toggle {
                         bottom: 15px;
@@ -211,7 +211,7 @@
                         top: -6px;
                         left: -4px;
                         border-left: 4px solid transparent;
-                        border-right: 4px solid transparent;
+                        border-right: 4px transparent;
                         border-top: 4px solid #FFFFFF;
                     }
                 }
@@ -238,7 +238,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget (Final Perfect Design) injected');
+            console.log('✅ Everse Chat Widget (Taller Window) injected');
         }
     }
 
