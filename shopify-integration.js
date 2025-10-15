@@ -1,4 +1,4 @@
-// Everse Shopify Chat Integration - Exact Speech Bubble Design
+// Everse Shopify Chat Integration - "E" Shape Speech Bubble Design
 (function() {
     'use strict';
     
@@ -29,8 +29,8 @@
             iframe.src = 'https://everse-chatbot.onrender.com/chat-widget';
             iframe.style.cssText = `
                 position: fixed;
-                bottom: 120px;
-                right: 30px;
+                bottom: 110px;
+                right: 25px;
                 width: 350px;
                 height: 500px;
                 border: none;
@@ -41,25 +41,25 @@
                 background: white;
             `;
 
-            // Create EXACT speech bubble button as specified
+            // Create "E" shape speech bubble button
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
-                <div class="chat-bubble-inner">
-                    <div class="chat-line line-1"></div>
-                    <div class="chat-line line-2"></div>
-                    <div class="chat-line line-3"></div>
+                <div class="e-shape">
+                    <div class="e-line e-top"></div>
+                    <div class="e-line e-middle"></div>
+                    <div class="e-line e-bottom"></div>
                 </div>
             `;
             toggleButton.style.cssText = `
                 position: fixed;
-                bottom: 30px;
-                right: 30px;
-                width: 70px;
-                height: 70px;
+                bottom: 25px;
+                right: 25px;
+                width: 60px;
+                height: 60px;
                 background: #FFFFFF;
                 border: 2px solid #000000;
-                border-radius: 16px 16px 16px 4px;
+                border-radius: 14px 14px 14px 4px;
                 cursor: pointer;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
                 display: flex;
@@ -72,62 +72,64 @@
                 transition: all 0.3s ease;
             `;
 
-            // Add EXACT styles as specified
+            // Add styles for "E" shape button
             const styles = document.createElement('style');
             styles.textContent = `
                 /* Speech bubble tail */
                 #everse-chat-toggle::before {
                     content: '';
                     position: absolute;
-                    bottom: -8px;
-                    left: 10px;
+                    bottom: -7px;
+                    left: 8px;
                     width: 0;
                     height: 0;
-                    border-left: 8px solid transparent;
-                    border-right: 8px solid transparent;
-                    border-top: 8px solid #000000;
+                    border-left: 7px solid transparent;
+                    border-right: 7px solid transparent;
+                    border-top: 7px solid #000000;
                     transform: rotate(-45deg);
                 }
                 #everse-chat-toggle::after {
                     content: '';
                     position: absolute;
-                    bottom: -5px;
-                    left: 11px;
+                    bottom: -4px;
+                    left: 9px;
                     width: 0;
                     height: 0;
-                    border-left: 6px solid transparent;
-                    border-right: 6px solid transparent;
-                    border-top: 6px solid #FFFFFF;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-top: 5px solid #FFFFFF;
                     transform: rotate(-45deg);
                     z-index: 2;
                 }
 
-                .chat-bubble-inner {
+                /* "E" shape styling - three horizontal lines forming E shape */
+                .e-shape {
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
+                    align-items: flex-start;
                     gap: 4px;
                     position: relative;
                     z-index: 3;
+                    margin-left: 12px;
                 }
 
-                .chat-line {
+                .e-line {
                     height: 3px;
                     border-radius: 2px;
                     background: #000;
                 }
 
-                /* EXACT specifications from your prompt */
-                .line-1 {
-                    width: 18px;  /* 70% of 26px = ~18px */
+                /* "E" shape lines - top and bottom are longer, middle is shorter */
+                .e-top {
+                    width: 20px;
                     background-color: #8B8E90;
                 }
-                .line-2 {
-                    width: 22px;  /* 85% of 26px = ~22px */
+                .e-middle {
+                    width: 16px;  /* Shorter than top and bottom */
                     background-color: #317A87;
                 }
-                .line-3 {
-                    width: 26px;  /* 100% = 26px */
+                .e-bottom {
+                    width: 20px;
                     background-color: #317A87;
                 }
 
@@ -160,11 +162,13 @@
                         width: 90vw !important;
                         height: 60vh !important;
                         right: 5vw !important;
-                        bottom: 100px !important;
+                        bottom: 90px !important;
                     }
                     #everse-chat-toggle {
-                        bottom: 20px;
-                        right: 20px;
+                        bottom: 15px;
+                        right: 15px;
+                        width: 55px;
+                        height: 55px;
                     }
                 }
             `;
@@ -190,7 +194,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget (Exact Speech Bubble) injected');
+            console.log('✅ Everse Chat Widget ("E" Shape Speech Bubble) injected');
         }
     }
 
