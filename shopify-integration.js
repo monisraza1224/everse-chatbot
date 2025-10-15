@@ -1,4 +1,4 @@
-// Everse Shopify Chat Integration - "E" Shape Speech Bubble Design
+// Everse Shopify Chat Integration - "E" Shape with Centered Lines & Long Tail
 (function() {
     'use strict';
     
@@ -41,7 +41,7 @@
                 background: white;
             `;
 
-            // Create "E" shape speech bubble button
+            // Create "E" shape speech bubble button with centered lines
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
@@ -72,45 +72,45 @@
                 transition: all 0.3s ease;
             `;
 
-            // Add styles for "E" shape button
+            // Add styles for centered "E" shape with longer tail
             const styles = document.createElement('style');
             styles.textContent = `
-                /* Speech bubble tail */
+                /* Longer speech bubble tail at lower left corner */
                 #everse-chat-toggle::before {
+                    content: '';
+                    position: absolute;
+                    bottom: -10px;
+                    left: 6px;
+                    width: 0;
+                    height: 0;
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-top: 10px solid #000000;
+                    transform: rotate(-45deg);
+                }
+                #everse-chat-toggle::after {
                     content: '';
                     position: absolute;
                     bottom: -7px;
                     left: 8px;
                     width: 0;
                     height: 0;
-                    border-left: 7px solid transparent;
-                    border-right: 7px solid transparent;
-                    border-top: 7px solid #000000;
-                    transform: rotate(-45deg);
-                }
-                #everse-chat-toggle::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -4px;
-                    left: 9px;
-                    width: 0;
-                    height: 0;
-                    border-left: 5px solid transparent;
-                    border-right: 5px solid transparent;
-                    border-top: 5px solid #FFFFFF;
+                    border-left: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-top: 8px solid #FFFFFF;
                     transform: rotate(-45deg);
                     z-index: 2;
                 }
 
-                /* "E" shape styling - three horizontal lines forming E shape */
+                /* "E" shape styling - centered lines */
                 .e-shape {
                     display: flex;
                     flex-direction: column;
-                    align-items: flex-start;
+                    align-items: center;
                     gap: 4px;
                     position: relative;
                     z-index: 3;
-                    margin-left: 12px;
+                    width: 100%;
                 }
 
                 .e-line {
@@ -119,17 +119,17 @@
                     background: #000;
                 }
 
-                /* "E" shape lines - top and bottom are longer, middle is shorter */
+                /* "E" shape lines - centered, middle line shorter */
                 .e-top {
-                    width: 20px;
+                    width: 22px;
                     background-color: #8B8E90;
                 }
                 .e-middle {
-                    width: 16px;  /* Shorter than top and bottom */
+                    width: 18px;  /* Shorter than top and bottom */
                     background-color: #317A87;
                 }
                 .e-bottom {
-                    width: 20px;
+                    width: 22px;
                     background-color: #317A87;
                 }
 
@@ -194,7 +194,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget ("E" Shape Speech Bubble) injected');
+            console.log('✅ Everse Chat Widget (Centered "E" Shape with Long Tail) injected');
         }
     }
 
