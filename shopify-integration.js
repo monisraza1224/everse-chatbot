@@ -1,7 +1,14 @@
-// Everse Shopify Chat Integration - Working Version
+// Everse Shopify Chat Integration - FIXED VERSION (No Duplicates)
 (function() {
     'use strict';
     
+    // Prevent multiple initializations
+    if (window.everseChatInitialized) {
+        console.log('🔄 Everse Chat already initialized, skipping...');
+        return;
+    }
+    window.everseChatInitialized = true;
+
     class ShopifyChatIntegration {
         constructor() {
             this.isInitialized = false;
@@ -17,7 +24,10 @@
         }
 
         injectChatWidget() {
-            if (this.isInitialized) return;
+            if (this.isInitialized || document.getElementById('everse-chat-toggle')) {
+                console.log('⚠️ Everse Chat widget already exists, skipping...');
+                return;
+            }
 
             // Create iframe for chat
             const iframe = document.createElement('iframe');
