@@ -1,4 +1,4 @@
-// Everse Shopify Chat Integration - Taller Chat Window
+// Everse Shopify Chat Integration - ACTUALLY TALLER Chat Window
 (function() {
     'use strict';
     
@@ -22,16 +22,16 @@
         injectChatWidget() {
             if (this.isInitialized || document.getElementById('everse-chat-toggle')) return;
 
-            // Create iframe for chat - WITH INCREASED HEIGHT
+            // Create iframe for chat - ACTUALLY TALLER
             const iframe = document.createElement('iframe');
             iframe.id = 'everse-chat-iframe';
             iframe.src = 'https://everse-chatbot.onrender.com/chat-widget';
             iframe.style.cssText = `
                 position: fixed;
-                bottom: 100px;
+                bottom: 120px;  // Moved up slightly to accommodate taller window
                 right: 20px;
-                width: 380px;    // Slightly wider
-                height: 700px;   // Increased height for more content
+                width: 400px;   // Slightly wider
+                height: 850px;  // ACTUALLY TALLER - from 500px to 850px
                 border: none;
                 border-radius: 12px;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.15);
@@ -41,7 +41,7 @@
             `;
             iframe.allow = 'microphone';
 
-            // Create speech bubble button (your existing design)
+            // Your existing speech bubble button code...
             const toggleButton = document.createElement('button');
             toggleButton.id = 'everse-chat-toggle';
             toggleButton.innerHTML = `
@@ -76,7 +76,7 @@
                 overflow: visible;
             `;
 
-            // Add your existing styles here (keep all your exact measurements)
+            // Your existing styles...
             const styles = document.createElement('style');
             styles.textContent = `
                 .bubble-inner {
@@ -107,7 +107,6 @@
                     background: #000;
                 }
 
-                /* Your exact measurements */
                 .bar-top {
                     width: 20.31%;
                     background-color: #9b9b9b;
@@ -129,7 +128,6 @@
                     margin-right: auto;
                 }
 
-                /* Tail in lower left corner */
                 .tail {
                     position: absolute;
                     bottom: -8px;
@@ -183,9 +181,9 @@
                 @media (max-width: 480px) {
                     #everse-chat-iframe {
                         width: 95vw !important;
-                        height: 75vh !important;  // Taller on mobile too
+                        height: 80vh !important;  // Taller on mobile
                         right: 2.5vw !important;
-                        bottom: 90px !important;
+                        bottom: 100px !important;
                     }
                     #everse-chat-toggle {
                         bottom: 15px;
@@ -211,23 +209,20 @@
                         top: -6px;
                         left: -4px;
                         border-left: 4px solid transparent;
-                        border-right: 4px transparent;
+                        border-right: 4px solid transparent;
                         border-top: 4px solid #FFFFFF;
                     }
                 }
             `;
 
-            // Add to page
             document.head.appendChild(styles);
             document.body.appendChild(iframe);
             document.body.appendChild(toggleButton);
 
-            // Toggle functionality
             toggleButton.addEventListener('click', () => {
                 iframe.classList.toggle('active');
             });
 
-            // Close when clicking outside
             document.addEventListener('click', (e) => {
                 if (iframe.classList.contains('active') && 
                     !iframe.contains(e.target) && 
@@ -238,7 +233,7 @@
             });
 
             this.isInitialized = true;
-            console.log('✅ Everse Chat Widget (Taller Window) injected');
+            console.log('✅ Everse Chat Widget (ACTUALLY TALLER - 850px) injected');
         }
     }
 
