@@ -14,10 +14,7 @@ class ChatWidget {
     }
 
     addEventListeners() {
-        // Chat button toggle
-        document.getElementById('chatButton').addEventListener('click', () => {
-            this.toggleChat();
-        });
+        // REMOVED: Chat button toggle event (button no longer exists)
 
         // Close chat
         document.getElementById('close-chat').addEventListener('click', () => {
@@ -36,15 +33,7 @@ class ChatWidget {
         });
     }
 
-    toggleChat() {
-        const chatWidget = document.getElementById('chat-widget');
-        chatWidget.classList.toggle('active');
-        this.isOpen = chatWidget.classList.contains('active');
-        
-        if (this.isOpen) {
-            document.getElementById('chat-input').focus();
-        }
-    }
+    // REMOVED: toggleChat() method - no longer needed
 
     closeChat() {
         document.getElementById('chat-widget').classList.remove('active');
